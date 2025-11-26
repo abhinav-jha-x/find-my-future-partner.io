@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Future Partner Result</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container result-box">
+
+    <h1>Your Future Partner ❤️</h1>
+
+    <!-- Girl Image -->
+    <img id="girlImage" class="girl-img">
+
+    <!-- Score + Type -->
+    <h2 id="scoreText"></h2>
+    <p id="typeText"></p>
+
+    <!-- Gifts Card -->
+    <div class="gift-card">
+        <h2>Recommended Gifts 🎁</h2>
+        <p id="giftText"></p>
+    </div>
+
+    <a class="btn" href="index.html">Calculate Again</a>
+
+</div>
+
+<script>
+/* Load from LocalStorage */
+const score = localStorage.getItem("partnerScore");
+const type = localStorage.getItem("partnerType");
+
+document.getElementById("scoreText").innerHTML = "Your Score: " + score;
+document.getElementById("typeText").innerHTML = "Partner Type: " + type;
+
+/* Girl Image Sets */
+const imageSets = {
+    low: [
+        "girls/low/g1.jpg",
+        "girls/low/g2.jpg",
+        "girls/low/g3.jpeg",
+        "girls/low/g4.jpg",
+        "girls/low/g5.jpg"
+    ],
+    medium: [
+        "girls/medium/g6.jpg",
+        "girls/medium/g7.jpg",
+        "girls/medium/g8.jpg",
+        "girls/medium/g9.jpg",
+        "girls/medium/g10.jpg",
+        "girls/high/g11.jpg"
+    ],
+    high: [
+        "girls/high/g12.jpeg",
+        "girls/high/g13.jpeg",
+        "girls/high/g14.webp",
+        "girls/high/g15.jpg",
+        "girls/high/g16.jpg",
+    ],
+    premium: [
+        "girls/premium/g17.webp",
+        "girls/premium/g18.jpg",
+        "girls/premium/g19.jpg",
+        "girls/premium/g20.jpg",
+        "girls/premium/g21.webp",
+        "girls/premium/g22.jpg",
+        "girls/premium/g23.webp",
+        "girls/premium/g24.webp"
+    ]
+};
+
+let selectedSet;
+
+if (score <= 30) selectedSet = imageSets.low;
+else if (score <= 55) selectedSet = imageSets.medium;
+else if (score <= 75) selectedSet = imageSets.high;
+else selectedSet = imageSets.premium;
+
+const randomImage = selectedSet[Math.floor(Math.random() * selectedSet.length)];
+document.getElementById("girlImage").src = randomImage;
+
+/* Blur-to-Fade Effect */
+document.getElementById("girlImage").addEventListener("load", () => {
+    document.getElementById("girlImage").classList.add("loaded");
+});
+
+/* Gift Logic */
+const scoreValue = parseInt(score);
+
+let giftSets = {
+    low: ["Teddy Bear 🧸", "Photo Frame ❤️", "Chocolates 🍫", "Coffee Mug ☕"],
+    medium: ["Smartwatch ⌚", "Perfume ✨", "Handbag 👜", "Earbuds 🎧"],
+    high: ["Gold Bracelet ✨", "Luxury Watch ⌚", "iPhone 📱", "Premium Speaker 🔊"],
+    premium: ["Royal Enfield 🏍️", "iPhone 16 Pro Max 📱", "BMW Car 🚗🔥", "Dubai Trip ✈️"]
+};
+
+let chosenGiftSet;
+
+if (scoreValue <= 30) chosenGiftSet = giftSets.low;
+else if (scoreValue <= 55) chosenGiftSet = giftSets.medium;
+else if (scoreValue <= 75) chosenGiftSet = giftSets.high;
+else chosenGiftSet = giftSets.premium;
+
+document.getElementById("giftText").innerHTML =
+    chosenGiftSet[Math.floor(Math.random() * chosenGiftSet.length)];
+</script>
+
+</body>
+</html>
